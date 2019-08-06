@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h1>
+                    {{page_title}}
+                </h1>
+                <p *ngIf="is_edit">
+                    Update a new post
+                </p>
+                <p *ngIf="!is_edit">
+                    Create a new post
+                </p>
+            </div>
+            <div class="card-body">
+                <div *ngIf="status == 'Success'" class="alert alert-success">
+                    Data saved succesfuly
+                </div>
+                <div *ngIf="status == 'Error'" class="alert alert-danger">
+                    Data is not saved
+                </div>
+
+                <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
+                	
+                	<div class="form-group">
+                		<input type="text" name="title" #title="ngModel" [(ngModel)]="post.title" class="form-control" required="" placeholder="Title">
+                		<div *ngIf="!title.valid && title.touched" class="mt-1 alert alert-danger text-left" role="alert">
+                            Title is not valid
+                        </div>
+                	</div>
+
+                	<div class="form-group">
+                		<textarea class="form-control" [froalaEditor]="froala_options" name="content" #content="ngModel" [(ngModel)]="post.content"></textarea>
+                	</div>
+                	<div *ngIf="!content.valid && content.touched" class="mt-1 alert alert-danger text-left" role="alert">
+                        Contetn is not valid
+                    </div>
+
+                    <div class="form-group">
+                    	<select name="category_id" #category="ngModel" [(ngModel)]="post.category_id" class="form-control">
+                    		<option disabled="true" [value]="" selected>Select one category </option>
+                    		<option *ngFor="let category of categories" value="{{category.id}}">
+                    			{{category.name}}
+                    		</option>
+                    	</select>
+                    </div>
+
+                    <div *ngIf="is_edit && post.image">
+                        <img class="avatar-edit img-thumbnail" src="{{url + 'post/image/' + post.image}}">
+                    </div>
+
+                    <div class="form-group">
+                    	<angular-file-uploader
+                    		[config]="afuConfig"
+                    		[resetUpload]=resetvar
+                    		(ApiResponse)="imageUpload($event)">
+                    	</angular-file-uploader>
+                    </div>
+
+                    <button class="btn btn-success" [disabled]="postForm.invalid">Send</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>

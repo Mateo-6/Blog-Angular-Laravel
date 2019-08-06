@@ -1,0 +1,96 @@
+<div class="container">
+
+  <br>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <a class="navbar-brand" href="#">
+        <img src="/assets/img/solaire.png" width="50" height="50" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active">Home<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+          </a>
+           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngFor="let category of categories" class="dropdown-item" [routerLink]="['category', category.id]">{{category.name}}</a>
+            </div>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav navbar-right" *ngIf="!identity">
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/register']" routerLinkActive="router-link-active" >Register</a>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
+
+        <li *ngIf="identity && identity.image" class="nav-item">
+          <div class="avatar-mask">
+            <img src="{{url + 'user/avatar/' + identity.image}}" class="avatar-menu">
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+
+            {{ identity.name + ' ' + identity.surname }}
+
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            <a class="dropdown-item" [routerLink]="['/new-category']">Create category</a>
+            <a class="dropdown-item" [routerLink]="['/new-post']">Create post</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['/profile', identity.sub]">My profile</a>
+            <a class="dropdown-item" [routerLink]="['/settings']">Settings</a>
+            <a class="dropdown-item" [routerLink]="['/logout/1']">Logout</a>
+
+          </div>
+
+        </li>
+
+      </ul>
+
+    </div>
+
+  </nav>
+
+  <!-- CONTENT APP -->
+  <router-outlet></router-outlet>
+
+</div>
+
+<footer class="page-footer mt-3 font-small bg-dark pt-4">
+  
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3 text-white">© 2018 Copyright:
+    <a href="https://mdbootstrap.com/education/angular/"> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>

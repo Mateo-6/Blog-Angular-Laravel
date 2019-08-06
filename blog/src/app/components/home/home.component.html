@@ -1,0 +1,13 @@
+<div class="loading" *ngIf="!posts">Cargando...</div>
+
+<div class="container-fluid">
+	<h1>{{page_title}}</h1>
+	<hr>
+	
+	<post-list [posts]="posts"
+			   [identity]="identity"
+			   [url]="url"></post-list>
+
+</div>
+
+

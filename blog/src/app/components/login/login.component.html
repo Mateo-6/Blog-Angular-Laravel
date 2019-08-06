@@ -1,0 +1,43 @@
+<div class="row">
+
+  <div class="col-md-6 mx-auto">
+
+    <div class="card mt-4 text-center">
+      <div class="card-header">
+
+        <h1>{{page_title}}</h1>
+        <p>login works!</p>
+
+      </div>
+
+      <div class="card-body">
+
+        <form action="" #loginForm="ngForm" (ngSubmit)="onSubmit(loginSubmit)">
+
+          <div class="form-group">
+            <!--<label for="email">Email</label>-->
+            <input class="form-control" type="email" name="email" placeholder="Email" #email="ngModel"
+              [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            <div *ngIf="!email.valid && email.touched" class="mt-1 alert alert-danger text-left" role="alert">
+              Email is not valid
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!--<label for="password">password</label>-->
+            <input class="form-control" type="password" name="password" placeholder="Password" #password="ngModel"
+              [(ngModel)]="user.password" required>
+            <div *ngIf="!password.valid && password.touched" class="mt-1 alert alert-danger text-left" role="alert">
+              Password is not valid
+            </div>
+          </div>
+
+          <button class="btn btn-success" [disabled]="loginForm.invalid">Login</button>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

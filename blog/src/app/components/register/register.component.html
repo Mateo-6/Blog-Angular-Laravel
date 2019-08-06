@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-8 mx-auto">
+
+    <div class="card mt-4 text-center">
+
+      <div class="card-header">
+
+        <h1>{{page_title}}</h1>
+        <p>register works!</p>
+
+        <p *ngIf="status != 'success'">Register in our application to create post and much more</p>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="alert alert-success" *ngIf="status == 'success'">
+          {{message}} <a [routerLink]="[ '/login']">Login here</a>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="status == 'error'">
+          {{message}}
+        </div>
+
+        <form action="" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+
+          <div class="form-group">
+            <!--<label for="name">Name</label>-->
+            <input class="form-control" type="text" name="name" placeholder="Name" #name="ngModel"
+              [(ngModel)]="user.name" required pattern="[a-zA-Z ]+">
+            <div *ngIf="!name.valid && name.touched" class="mt-1 alert alert-danger text-left" role="alert">
+              Name is not valid
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!--<label for="surname">Surname</label>-->
+            <input class="form-control" type="text" name="surname" placeholder="Surname" #surname="ngModel"
+              [(ngModel)]="user.surname" required pattern="[a-zA-Z ]+">
+            <div *ngIf="!surname.valid && surname.touched" class="mt-1 alert alert-danger text-left" role="alert">
+              Surname is not valid
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!--<label for="email">Email</label>-->
+            <input class="form-control" type="email" name="email" placeholder="Email" #email="ngModel"
+              [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            <div *ngIf="!email.valid && email.touched" class="mt-1 alert alert-danger text-left" role="alert">
+              Email is not valid
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!--<label for="password">password</label>-->
+            <input class="form-control" type="password" name="password" placeholder="Password" #password="ngModel"
+              [(ngModel)]="user.password" required>
+            <div *ngIf="!password.valid && password.touched" class="mt-1 alert alert-danger text-left" role="alert">
+              Password is not valid
+            </div>
+          </div>
+
+          <button class="btn btn-success" [disabled]="registerForm.invalid">Send</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

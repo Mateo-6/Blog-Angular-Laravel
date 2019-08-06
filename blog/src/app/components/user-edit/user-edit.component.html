@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h1>
+                    {{page_title}}
+                </h1>
+                <p>
+                    edit works!
+                </p>
+                <p *ngIf="status != 'success'">
+                    Update your personal data
+                </p>
+            </div>
+            <div class="card-body">
+                <div *ngIf="status == 'success'" class="alert alert-success">
+                    {{message}}
+                </div>
+                <div *ngIf="status == 'error'" class="alert alert-danger">
+                    {{message}}
+                </div>
+                <form #updateForm="ngForm" (ngSubmit)="onSubmit(updateForm)" action="">
+                    <div class="form-group">
+                        <!--<label for="name">Name</label>-->
+                        <input #name="ngModel" [(ngModel)]="user.name" class="form-control" name="name" pattern="[a-zA-Z ]+" placeholder="Name" required="" type="text">
+                            <div *ngIf="!name.valid && name.touched" class="mt-1 alert alert-danger text-left" role="alert">
+                                Name is not valid
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="surname">Surname</label>-->
+                        <input #surname="ngModel" [(ngModel)]="user.surname" class="form-control" name="surname" pattern="[a-zA-Z ]+" placeholder="Surname" required="" type="text">
+                            <div *ngIf="!surname.valid && surname.touched" class="mt-1 alert alert-danger text-left" role="alert">
+                                Surname is not valid
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="email">Email</label>-->
+                        <input #email="ngModel" [(ngModel)]="user.email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email" required="" type="email">
+                            <div *ngIf="!email.valid && email.touched" class="mt-1 alert alert-danger text-left" role="alert">
+                                Email is not valid
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="surname">Surname</label>-->
+                        <textarea #description="ngModel" [(ngModel)]="user.description" [froalaEditor]="froala_options" class="form-control text-left" name="description" placeholder="Description" type="text">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="surname">Surname</label>
+            <input type="file" name="image" placeholder="image" #image="ngModel" [(ngModel)]="user.image">-->
+                        <div *ngIf="identity && identity.image">
+                            <img class="avatar-edit img-thumbnail" src="{{url + 'user/avatar/' + identity.image}}">
+                        </div>
+                        <angular-file-uploader 
+                            (apiresponse)="avatarUpload($event)" 
+                            [config]="afuConfig" 
+                            [resetUpload]="resetVar">
+                        </angular-file-uploader>
+                    </div>
+                    <button [disabled]="updateForm.invalid" class="btn btn-success">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

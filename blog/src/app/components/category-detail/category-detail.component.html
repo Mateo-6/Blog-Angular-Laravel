@@ -1,0 +1,16 @@
+<div class="loading" *ngIf="!category">Reloading...</div>
+
+<div class="container-fluid" *ngIf="category">
+	<h1>{{category.name}}</h1>
+	<hr>
+	
+	<div class="loading" *ngIf="!posts">Reloading posts...</div>
+
+	<div *ngIf="posts && posts.length == 0" class="alert alert-warning text-center">There are not post to show</div>
+
+	<post-list [posts]="posts"
+			   [identity]="identity"
+			   [url]="url"></post-list>
+</div>
+
+

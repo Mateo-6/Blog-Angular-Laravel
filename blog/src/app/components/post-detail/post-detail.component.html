@@ -1,0 +1,9 @@
+<div class="col-md-12" *ngIf="!post">
+	Cargando...
+</div>
+
+<div class="col-md-12" *ngIf="post">
+	<h1>{{post.title}}</h1>
+	<p>{{post.category.name}} - <a [routerLink]="['/profile', post.users.id]">{{post.users.name + post.users.surname}}</a></p>
+	<p [innerHtml]="post.content"></p>
+</div>
